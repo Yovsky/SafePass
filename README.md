@@ -1,5 +1,5 @@
 # SafePass
-SafePass is a lightweight password generator written in C++ and uses Qt for the User-Interface
+SafePass is a lightweight password generator written in C++ and uses Qt for the User-Interface.
 
 ---
 ## Features
