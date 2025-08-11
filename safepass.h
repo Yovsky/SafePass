@@ -17,6 +17,11 @@ public:
     SafePass(QWidget *parent = nullptr);
     ~SafePass();
 
+private slots:
+    void on_pushButton_clicked();
+
+    void on_Gobutton_clicked();
+
 private:
     Ui::SafePass *ui;
 };
