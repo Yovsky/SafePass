@@ -29,6 +29,26 @@ void SafePass::on_pushButton_clicked()
     QString pass;
     QString Ssize = ui->pass_length->text();
     int size = Ssize.toInt();
+    if (size<=8)
+    {
+        ui->Strength->setStyleSheet("QLabel { color: red; }");
+        ui->Strength->setText("Weak");
+    }
+    else if(size<=16)
+    {
+        ui->Strength->setStyleSheet("QLabel { color: yellow; }");
+        ui->Strength->setText("Medium");
+    }
+    else if(size<=24)
+    {
+        ui->Strength->setStyleSheet("QLabel { color: #01e519; }");
+        ui->Strength->setText("Strong");
+    }
+    else
+    {
+        ui->Strength->setStyleSheet("QLabel { color: green; }");
+        ui->Strength->setText("Very Strong");
+    }
     std::string pool;
     if (ui->upper->isChecked())
         pool += Upper_pool;
