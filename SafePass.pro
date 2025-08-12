@@ -10,12 +10,15 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
+    passchecker.cpp \
     safepass.cpp
 
 HEADERS += \
+    passchecker.h \
     safepass.h
 
 FORMS += \
+    passchecker.ui \
     safepass.ui
 
 TRANSLATIONS += \

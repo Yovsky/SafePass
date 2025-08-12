@@ -1,9 +1,11 @@
 #include "safepass.h"
 #include "ui_safepass.h"
+#include "passchecker.h"
 #include <QIntValidator>
 #include <QLineEdit>
 #include <QString>
 #include <QCheckBox>
+#include <QClipboard>
 #include <random>
 
 std::string Upper_pool = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -17,6 +19,11 @@ SafePass::SafePass(QWidget *parent)
 {
     ui->setupUi(this);
     ui->pass_length->setValidator(new QIntValidator(1, 256, this));
+    connect(ui->Pass_checker, &QAction::triggered, this, [this]() {
+        passchecker dlg(this);
+        dlg.exec();
+    });
+
 }
 
 SafePass::~SafePass()
@@ -66,5 +73,17 @@ void SafePass::on_pushButton_clicked()
         pass += pool[dist(generator)];
     }
     ui->result->setText(pass);
+}
+
+
+void SafePass::on_pushButton_2_clicked()
+{
+    QClipboard *clipboard = QGuiApplication::clipboard();
+    clipboard->setText(ui->result->toPlainText());
+    if (clipboard->text() == ui->result->toPlainText())
+    {
+        ui->is_copied->setStyleSheet("QLabel {font: bold; color: gray;}");
+        ui->is_copied->setText("Copied!");
+    }
 }
 
