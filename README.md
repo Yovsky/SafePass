@@ -5,7 +5,8 @@ SafePass is a lightweight password generator written in C++ and uses Qt framewor
 ## Features
 - Generator capable of building passwords using Upper-case, Lower-case, Numbers and Symbols, with a maximum length of 256 characters.
 - Simple and user-friendly UI.
-- Password strength checker.
+- Password strength checker tool.
+- Copy to clipboard button.
 
 ---
 ## The Generation
