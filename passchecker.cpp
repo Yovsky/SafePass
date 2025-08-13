@@ -13,6 +13,18 @@ passchecker::~passchecker()
     delete ui;
 }
 
+void passchecker::on_Hide_checkStateChanged(const Qt::CheckState &arg1)
+{
+    if (arg1)
+    {
+        ui->Input->setEchoMode(QLineEdit::Password);
+    }
+    else if (!arg1)
+    {
+        ui->Input->setEchoMode(QLineEdit::Normal);
+    }
+}
+
 void passchecker::on_CheckButton_clicked()
 {
     QString pass = ui->Input->text();
@@ -44,4 +56,3 @@ void passchecker::on_CancelButton_2_clicked()
 {
     this->close();
 }
-

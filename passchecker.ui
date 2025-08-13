@@ -22,8 +22,14 @@
      <height>24</height>
     </rect>
    </property>
+   <property name="tabletTracking">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Check</string>
+   </property>
+   <property name="default">
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="QPushButton" name="CancelButton_2">
@@ -76,6 +82,19 @@
    </property>
    <property name="text">
     <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="Hide">
+   <property name="geometry">
+    <rect>
+     <x>355</x>
+     <y>50</y>
+     <width>51</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Hide</string>
    </property>
   </widget>
  </widget>

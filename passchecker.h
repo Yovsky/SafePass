@@ -20,6 +20,8 @@ private slots:
 
     void on_CancelButton_2_clicked();
 
+    void on_Hide_checkStateChanged(const Qt::CheckState &arg1);
+
 private:
     Ui::passchecker *ui;
 };

@@ -6,6 +6,7 @@
 #include <QString>
 #include <QCheckBox>
 #include <QClipboard>
+#include <QMessageBox>
 #include <random>
 
 std::string Upper_pool = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -33,9 +34,22 @@ SafePass::~SafePass()
 
 void SafePass::on_pushButton_clicked()
 {
+    ui->Strength->setText("");
+    ui->result->setText("");
+    ui->is_copied->setText("");
     QString pass;
     QString Ssize = ui->pass_length->text();
     int size = Ssize.toInt();
+    if (size < 1 || size > 256)
+    {
+        QMessageBox::warning(this, "Warning", "Please insert a valid size (1 - 256).");
+        return;
+    }
+    if (!ui->upper->isChecked() && !ui->lower->isChecked() && !ui->nums->isChecked() && !ui->symbols->isChecked())
+    {
+        QMessageBox::warning(this, "Warning", "Please select one or more of the character types.");
+        return;
+    }
     if (size<=8)
     {
         ui->Strength->setStyleSheet("QLabel { color: red; }");
@@ -73,8 +87,7 @@ void SafePass::on_pushButton_clicked()
         pass += pool[dist(generator)];
     }
     ui->result->setText(pass);
-}
-
+   }
 
 void SafePass::on_pushButton_2_clicked()
 {
@@ -86,4 +99,5 @@ void SafePass::on_pushButton_2_clicked()
         ui->is_copied->setText("Copied!");
     }
 }
+
 
