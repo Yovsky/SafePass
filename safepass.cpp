@@ -8,11 +8,65 @@
 #include <QClipboard>
 #include <QMessageBox>
 #include <random>
+#include <cmath>
 
 std::string Upper_pool = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 std::string Lower_pool = "abcdefghijklmnopqrstuvwxyz";
 std::string Num_pool = "1234567890";
 std::string Symbol_pool = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
+
+int strength_check(QString pass)
+{
+    std::string Upper_pool = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    std::string Lower_pool = "abcdefghijklmnopqrstuvwxyz";
+    std::string Num_pool = "1234567890";
+    std::string Symbol_pool = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
+
+    int cnum = 0;
+
+    for (char c : Upper_pool)
+    {
+        if (pass.indexOf(c) != -1)
+        {
+            cnum += 26;
+            break;
+        }
+    }
+    for (char c : Lower_pool)
+    {
+        if (pass.indexOf(c) != -1)
+        {
+            cnum += 26;
+            break;
+        }
+    }
+    for (char c : Num_pool)
+    {
+        if (pass.indexOf(c) != -1)
+        {
+            cnum += 10;
+            break;
+        }
+    }
+    for (char c : Symbol_pool)
+    {
+        if (pass.indexOf(c) != -1)
+        {
+            cnum += 32;
+            break;
+        }
+    }
+    int entropy = pass.size() * log2(cnum);
+    if (entropy <= 28)
+        return 1; //Weak
+    else if (entropy <= 35)
+        return 2; //Medium
+    else if (entropy <= 59)
+        return 3; //Strong
+    else return 4; //Very strong
+
+    return 0;
+}
 
 SafePass::SafePass(QWidget *parent)
     : QMainWindow(parent)
@@ -50,26 +104,6 @@ void SafePass::on_pushButton_clicked()
         QMessageBox::warning(this, "Warning", "Please select one or more of the character types.");
         return;
     }
-    if (size<=8)
-    {
-        ui->Strength->setStyleSheet("QLabel { color: red; }");
-        ui->Strength->setText("Weak");
-    }
-    else if(size<=16)
-    {
-        ui->Strength->setStyleSheet("QLabel { color: yellow; }");
-        ui->Strength->setText("Medium");
-    }
-    else if(size<=24)
-    {
-        ui->Strength->setStyleSheet("QLabel { color: #01e519; }");
-        ui->Strength->setText("Strong");
-    }
-    else
-    {
-        ui->Strength->setStyleSheet("QLabel { color: green; }");
-        ui->Strength->setText("Very Strong");
-    }
     std::string pool;
     if (ui->upper->isChecked())
         pool += Upper_pool;
@@ -87,6 +121,27 @@ void SafePass::on_pushButton_clicked()
         pass += pool[dist(generator)];
     }
     ui->result->setText(pass);
+    int strength = strength_check(pass);
+    if (strength <= 1)
+    {
+        ui->Strength->setStyleSheet("QLabel { color: red; }");
+        ui->Strength->setText("Weak");
+    }
+    else if(strength <= 2)
+    {
+        ui->Strength->setStyleSheet("QLabel { color: yellow; }");
+        ui->Strength->setText("Medium");
+    }
+    else if(strength <= 3)
+    {
+        ui->Strength->setStyleSheet("QLabel { color: #01e519; }");
+        ui->Strength->setText("Strong");
+    }
+    else
+    {
+        ui->Strength->setStyleSheet("QLabel { color: green; }");
+        ui->Strength->setText("Very Strong");
+    }
    }
 
 void SafePass::on_pushButton_2_clicked()

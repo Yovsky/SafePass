@@ -3,6 +3,9 @@
 
 #include "passchecker.h"
 #include <QMainWindow>
+#include <QString>
+
+int strength_check(QString pass);
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -18,6 +21,7 @@ public:
     SafePass(QWidget *parent = nullptr);
     ~SafePass();
     passchecker *checkerWindow = nullptr;
+
 
 private slots:
     void on_pushButton_clicked();

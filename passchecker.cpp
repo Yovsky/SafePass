@@ -1,5 +1,6 @@
 #include "passchecker.h"
 #include "ui_passchecker.h"
+#include "safepass.h"
 
 passchecker::passchecker(QWidget *parent)
     : QDialog(parent)
@@ -28,18 +29,18 @@ void passchecker::on_Hide_checkStateChanged(const Qt::CheckState &arg1)
 void passchecker::on_CheckButton_clicked()
 {
     QString pass = ui->Input->text();
-    int size = pass.size();
-    if (size<=8)
+    int strength = strength_check(pass);
+    if (strength <= 1)
     {
         ui->Strength->setStyleSheet("QLabel { color: red; }");
         ui->Strength->setText("Weak");
     }
-    else if(size<=16)
+    else if(strength <= 2)
     {
         ui->Strength->setStyleSheet("QLabel { color: yellow; }");
         ui->Strength->setText("Medium");
     }
-    else if(size<=24)
+    else if(strength <= 3)
     {
         ui->Strength->setStyleSheet("QLabel { color: #01e519; }");
         ui->Strength->setText("Strong");
