@@ -14,10 +14,10 @@ The generator is built using the random library and relies on a secure seeding s
 
 ---
 ## The password strength checker
-has four levels of strength:
-- Weak (8 characters or less).
-- Medium (between 16 and 8 characters).
-- Strong (between 24 and 16 characters).
-- Very Strong (more than 24 characters).
+has four levels of strength (based on entropy):
+- Weak (28 bits or less).
+- Medium (between 35 and 28 bits).
+- Strong (between 59 and 35 bits).
+- Very Strong (60 bits or more).
 
 ---
